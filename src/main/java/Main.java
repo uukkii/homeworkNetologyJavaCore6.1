@@ -25,7 +25,7 @@ public class Main {
 //
 //        delete("Games/BestGame/savegames/save1.dat");
 //        delete("Games/BestGame/savegames/save2.dat");
-        delete("Games/BestGame/savegames/save4.dat");
+//        delete("Games/BestGame/savegames/save4.dat");
     }
 
     public void saveGame(String dir, GameProgress gameProgress) {
@@ -34,8 +34,8 @@ public class Main {
             oos.writeObject(gameProgress);
             savesList.add(dir);
             oos.flush();
-        } catch (IOException ex) {
-            System.err.println(ex.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -52,15 +52,15 @@ public class Main {
                 zos.closeEntry();
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    public void delete(String dir) {
+    public void delete(String dir) throws IOException {
         try {
             Files.delete(Paths.get(dir));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw e;
         }
     }
 }

@@ -3,7 +3,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -45,7 +44,7 @@ public class MainTests {
     @Test
     public void testDeleteThrow() {
         String dir = "Games/BestGame/savegames/save4.dat";
-        var expected = IOException.class;
+        var expected = NoSuchFileException.class;
         assertThrows(expected,
                 () -> sut.delete(dir));
     }
@@ -55,7 +54,6 @@ public class MainTests {
         List<String> savesList = new ArrayList<>();
         sut.zipFiles("Games/BestGame/savegames/saves.zip", savesList);
         boolean result = Files.exists(Path.of("Games/BestGame/savegames/saves.zip"));
-
         assertTrue(result);
     }
 
@@ -70,5 +68,4 @@ public class MainTests {
         return Stream.of(Arguments.of("Games/BestGame/savegames/save1.dat", new GameProgress(100, 2, 1, 1.0),
                 Arguments.of("Games/BestGame/savegames/save2.dat", new GameProgress(80, 5, 4, 112.5))));
     }
-
 }
